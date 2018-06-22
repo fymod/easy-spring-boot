@@ -1,0 +1,7 @@
+server:
+  port: 8899
+spring:
+  profiles:
+    active: pro
+logging: 
+  config: classpath:logback-my.xml

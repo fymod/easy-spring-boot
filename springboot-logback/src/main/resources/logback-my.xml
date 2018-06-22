@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<configuration>
+	<!-- 定义log日志文件位置，INFO_FILE ERROR_FILE会引用 -->
+    <property name="LOG_HOME"  value="logs"></property>  
+    <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】 -->
+    <!-- 定义控制台输出数据格式 -->
+    <property name="consoleLayoutPattern"    
+        value="%d %p (%file:%line\)- %m%n" />  
+    <!-- 定义文件输出数据格式 -->  
+    <property name="fileLayoutPattern"    
+        value="%-20(%d{yyyyMMdd_HH:mm:ss.SSS} [%logger{10}][%thread] [%-4relative]) [%X{hostName} %X{requestId} ][%level] %msg%n" />  
+  
+    <!-- ConsoleAppender：把日志输出到控制台 -->  
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <pattern>${consoleLayoutPattern}</pattern>
+        </layout>  
+    </appender>  
+  	<!-- RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 --> 
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${LOG_HOME}/info.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${LOG_HOME}/info.log.%d{yyyy-MM-dd}</fileNamePattern>  
+            <maxHistory>10</maxHistory>  
+        </rollingPolicy>  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <Pattern>${fileLayoutPattern}</Pattern>
+        </layout>  
+    </appender>
+    <!-- 根据业务需要，指定到一个包里面输出的文件，名称使用的my.log -->
+    <appender name="MY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${LOG_HOME}/my.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${LOG_HOME}/my.log.%d{yyyy-MM-dd}</fileNamePattern>  
+            <maxHistory>10</maxHistory>  
+        </rollingPolicy>  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <Pattern>${fileLayoutPattern}</Pattern>
+        </layout>  
+    </appender>  
+  	<!-- 错误信息存储文件为error.log，filter中指定只保存error信息 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${LOG_HOME}/error.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd}</fileNamePattern>  
+            <maxHistory>10</maxHistory>  
+        </rollingPolicy>  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <Pattern>${fileLayoutPattern}</Pattern>
+        </layout>  
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">  
+            <level>error</level>  
+            <onMismatch>DENY</onMismatch>  
+        </filter>  
+    </appender>
+  
+    <!-- 定义测试环境日志级别 -->  
+    <springProfile name="dev">  
+        <logger name="com.fymod.logback" level="DEBUG"/>  
+        <root>  
+            <level value="INFO" />  
+            <appender-ref ref="STDOUT" />  
+        </root>  
+    </springProfile>  
+    
+    <!--  定义线上环境日志级别  -->   
+    <springProfile name="pro">  
+        <root>  
+            <level value="INFO" />  
+            <appender-ref ref="INFO_FILE" />  
+            <appender-ref ref="ERROR_FILE" />  
+        </root>  
+    </springProfile>  
+    
+    <!-- 指定包中的日志保存到特定文件，必须additivity="false" -->
+    <logger name="com.fymod.logback.service" level="DEBUG" additivity="false">
+	      <appender-ref ref="MY_FILE" />  
+	</logger>
+  
+</configuration>  
