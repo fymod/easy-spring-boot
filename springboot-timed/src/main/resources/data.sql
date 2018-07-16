@@ -1,0 +1,1 @@
+insert into config(id,cron,types,description) values(1,'0 0/2 * * * ?', 100, '测试的定时表达式');
