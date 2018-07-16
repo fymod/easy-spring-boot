@@ -25,7 +25,7 @@ public class MyScheduler {
 
 	public void scheduleJobs() throws SchedulerException {
 		scheduler = schedulerFactoryBean.getScheduler();
-		startJob(); // 每15分钟执行一次
+		startJob(); 
 	}
 
 	public static void startJob() throws SchedulerException {
