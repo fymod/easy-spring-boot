@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="cn.jiguang.sdk:jpush-3.1.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jpush-3.1.5.aar/492cd58ecce153851216abbd54c2ab6e/jars/libs/jpush-android-3.1.5.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jpush-3.1.5.aar/492cd58ecce153851216abbd54c2ab6e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jpush-3.1.5.aar/492cd58ecce153851216abbd54c2ab6e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.jiguang.sdk/jpush/3.1.5/55bac94e334f1a860d505c27b1ce48f0be0e8b83/jpush-3.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
